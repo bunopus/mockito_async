@@ -13,6 +13,12 @@ tryFoo(Foo foo) async {
   throw('foo threw an exception');
 }
 
+tryFooNoAsync(Foo foo) {
+  return foo.doStuff().catchError((e) {
+    throw('foo threw an exception');
+  });
+}
+
 
 class FooSync {
   String doStuff() {}

@@ -37,6 +37,16 @@ main() {
     });
 
     // Passes
+    test('supports async calls using mock errors', () {
+      var foo = new MockFoo();
+      when(foo.doStuff()).thenReturn(new Future.error('mock error'));
+
+      return tryFooNoAsync(foo).catchError((e) {
+        expect(true, equals(true));
+      });
+    });
+
+    // Passes
     test('supports sync calls using mock errors', () {
       var foo = new MockFooSync();
       when(foo.doStuff()).thenReturn(new Exception('mock error'));
