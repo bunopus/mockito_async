@@ -1,0 +1,5 @@
+name: mockito_async
+dependencies:
+dev_dependencies:
+  test: any
+  mockito: any
