@@ -14,26 +14,11 @@ class MockFooSync extends Mock implements FooSync {
 
 main() {
   group('async and mockito', () {
-    // Fails, throwing 'mock error'
+    // Now passes too!
     test('supports async calls using mock errors', () {
       var foo = new MockFoo();
-      when(foo.doStuff()).thenReturn(new Future.error('mock error'));
-
-      return tryFoo(foo).catchError((e) {
-        expect(true, equals(true));
-      });
-    });
-
-    // Fails, throwing 'mock error'
-    test('supports async calls using mock errors ASYNC', () async {
-      var foo = new MockFoo();
-      when(foo.doStuff()).thenReturn(new Future.error('mock error'));
-
-      try {
-        await tryFoo(foo);
-      } catch (e) {
-        expect(true, equals(true));
-      }
+      when(foo.doStuff()).thenAnswer((_) => new Future.error('mock error'));
+      expect(foo.doStuff(),throwsA(equals('mock error')));
     });
 
     // Passes
